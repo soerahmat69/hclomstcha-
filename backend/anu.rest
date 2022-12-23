@@ -1,0 +1,16 @@
+POST   http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "username": "rahmat",
+    "password": "rahmat"
+}
+####
+
+GET  http://localhost:8080/v
+####
+
+GET  http://localhost:8080/z
+
+###
+GET  http://localhost:8080/products

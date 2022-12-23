@@ -1,20 +1,20 @@
 const router = require('express').Router();
-const { chara,login } = require('../controllers');
+const express = require('express');
+const app = express();
+// const { chara,login } = require('../controllers/index');
+const {getChara,getUser} = require("../controllers/chara")
+const {login,logout,VeryUser} = require("../controllers/auth")
 
-// GET localhost:8080/chara => Ambil data semua chara
-router.get('/', chara.getChara);
+router.get('/products',VeryUser,getChara);
 
-// GET localhost:8080/chara/2 => Ambil data semua chara berdasarkan id = 2
-router.get('/chara', chara.getCharaID);
+// router.get('/product/chara', chara.getCharaID);
 
-// POST localhost:8080/chara/add => Tambah data chara ke database
-router.post('/add', chara.addChara);
+// router.post('/product/chara/add', chara.addChara);
 
-// POST localhost:8080/chara/2 => Edit data chara
-router.put('/edit', chara.editChara);
+// router.put('/product/chara/edit', getUser);
 
-router.post('/login', login.getUser);
-// POST localhost:8080/chara/delete => Delete data chara
-// router.delete('/chara/delete/', chara.deleteChara);
+// router.post('/login', login);
+
+// router.post('/logout', logout);
 
 module.exports = router;

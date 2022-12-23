@@ -1,7 +1,7 @@
 
-const chara = require('./chara');
-const login = require('./login');
+// const chara = require('./chara');
+// const login = require('./login');
 
-module.exports ={
-	chara,login
-};
+// module.exports ={
+// 	chara,login
+// };
