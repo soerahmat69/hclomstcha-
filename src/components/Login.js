@@ -1,11 +1,58 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import hero from "../img/hero.png";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom'
 
-const Login = (props) => {
+
+const url = "http://localhost:8080/login";
+const Login = () => {
   let Title = () => {
     document.title = "Login";
   };
+
+  let  [valid, setValid] = useState(false);
+  const [loging,setLoging] = useState({username:"",password:""});
+  const navigate = useNavigate()
+ 
+  const valueSubmit = (e) =>{
+    const value = e.target.value;
+    setLoging({
+      ...loging,
+      [e.target.name]: value
+    });
+  }
+
+
+  // const history = useHistory();
+  const submitlogin = (e) => {
+      e.preventDefault();
+      console.log(valid)
+      const loged = {
+        username: loging.username,
+        password: loging.password
+      };
+   
+      axios
+        .post(`${url}`,loged)
+        .then((response) => {
+
+          if(response.status === 200){
+            navigate('/dashboard')
+            // console.log("succsess")
+
+          }else{
+            console.log("anu enak")
+          }
+          
+        })
+        .catch((error)=>{
+          if(error.response){
+            console.log(error.response.status)
+          }
+        });
+    }
 
   let alt = "amogus";
 
@@ -33,40 +80,62 @@ const Login = (props) => {
         <div className="w-[200px] h-[200px] rounded-full absolute right-[730px] bottom-[19px] bg-[#FEC9D1]"></div>
       </div>
       <div className=" bg-[#FEC9D1] col-span-2">
-
         <div className="mt-[120px] flex flex-col ">
           <div className="flex-row flex justify-center mb-7 justify-items-center ">
             <hr className="mt-9 h-[3px] w-[148px] bg-black " />
-            <h1 className=" mx-3 font-[poppins] font-extrabold text-[53px]">login</h1>
+            <h1 className=" mx-3 font-[poppins] font-extrabold text-[53px]">
+              login
+            </h1>
             <hr className="w-[148px] h-[3px] bg-black mt-9 " />
           </div>
-          
-          <div className="my-3 mx-auto">
-            <input placeholder="email@" type="email" className="font-['poppins'] ring-1 ring-black w-[290px] py-5 px-3 rounded-md text-[31px] h-[50px]" />
-          </div>
-          <div className="my-3 mx-auto">
-            <input type="password" placeholder="password" className=" font-['poppins'] ring-1 ring-black w-[290px] py-5 px-3 rounded-md text-[31px] h-[50px]" />
-          </div>
-
-          <div className="mt-6 mx-auto">
-            <button  className=" w-[130px]  rounded-md text-[31px] bg-[#916FA1] h-[50px]">
-                <p className="text-[26px] font-[poppins] font-semibold text-white">login</p>
-            </button>
-          </div>
-
-          <div className="text-center mt-4 ">
-                <p className="font-normal font-[poppins]">create account, <Link className=" font-extrabold " to="/Dashboard"> SignUp</Link></p>
+          <form className="mx-auto text-center" onSubmit={submitlogin}>
+            <div className="my-3 mx-auto">
+              <input
+                onChange={valueSubmit}
+                value={loging.username}
+                name="username"
+                placeholder="email@"
+                type="text"
+                className="font-['poppins'] ring-1 ring-black w-[290px] py-5 px-3 rounded-md text-[31px] h-[50px]"
+              />
             </div>
+            <div className="my-3 mx-auto">
+              <input
+              onChange={valueSubmit}
+                      value={loging.password}
+                      name="password"
+                type="password"
+                placeholder="password"
+                className=" font-['poppins'] ring-1 ring-black w-[290px] py-5 px-3 rounded-md text-[31px] h-[50px]"
+              />
+            </div>
+
+            <div className="mt-6 mx-auto">
+              <button className=" w-[130px]  rounded-md text-[31px] bg-[#916FA1] h-[50px]">
+                <p className="text-[26px] font-[poppins] font-semibold text-white">
+                  login
+                </p>
+              </button>
+            </div>
+          </form>
+          <div className="text-center mt-4 ">
+            <p className="font-normal font-[poppins]">
+              create account,{" "}
+              <Link className=" font-extrabold " to="/Dashboard">
+                {" "}
+                SignUp
+              </Link>
+            </p>
+          </div>
 
           <div className="flex-row mt-3 flex justify-center mb-7 justify-items-center ">
             <hr className="mt-9 h-[3px] w-[148px] bg-black " />
-            <h1 className=" mx-3 font-['poppins'] font-extrabold  text-[53px]">or</h1>
+            <h1 className=" mx-3 font-['poppins'] font-extrabold  text-[53px]">
+              or
+            </h1>
             <hr className="w-[148px] h-[3px] bg-black mt-9 " />
           </div>
-          
         </div>
-
-        
       </div>
     </div>
   );
