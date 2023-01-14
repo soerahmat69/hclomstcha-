@@ -7,123 +7,96 @@ pool.on("error", (err) => {
 });
 
 module.exports = {
- 
-     getChara: async(req, res,next)=>{
-
-      const results = await pool.promise().query(
-        `
+  //get chara index
+  getChara: async (req, res, next) => {
+    const results = await pool.promise().query(
+      `
                 SELECT * FROM character_anime;
                 `
-                ,
-      );
+    );
 
     res.status(200).send({
-          success: true,
-          message: "Berhasil ambil data!",
-          data: results[0],
-        });
-}
-  // Ambil data characeter berdasarkan ID
-
- , getCharaID:  (req, res)=>{
-    let id = req.query.id;
-    pool.getConnection(function (err, connection) {
-      if (err) throw err;
-      connection.query(
-        `
-                SELECT * FROM character_anime WHERE chara_id = ?;
-                `,
-        [id],
-        function (error, results) {
-          if (error) throw error;
-          res.send({
-            success: true,
-            message: "Berhasil ambil data id!",
-            data: results,
-          });
-        }
-      );
-      connection.release();
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
     });
-  }
+  },
+
+  // Ambil data characeter berdasarkan ID
+  getCharaID: async (req, res) => {
+    let id = req.params.id;
+    const results = await pool.promise().query(
+      `
+              SELECT * FROM character_anime where chara_id = ?;
+              `,
+      [id]
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
+    });
+  },
+
   // Simpan data characeter
- ,addChara: async(req, res)=>{
+  addChara: async (req, res) => {
     let data = {
       chara_name: req.body.nama,
       chara_size: req.body.ukuran,
       chara_img: req.body.img,
       accessories_id: req.body.accessories_id,
-      include_id: req.body.include_id,
     };
-    pool.getConnection(function (err, connection) {
-      if (err) throw err;
-      connection.query(
-        `
-                INSERT INTO character_anime SET ?;
-                `,
-        [data],
-        function (error, results) {
-          if (error) throw error;
-          res.send({
-            success: true,
-            message: "Berhasil tambah data!",
-          });
-        }
-      );
-      connection.release();
+    const results = await pool.promise().query(
+      `
+      INSERT INTO character_anime SET ?;
+      `,
+      [data]
+    );
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
     });
-  }
-  // Update data karyawan
+  },
 
-  ,editChara : async(req, res)=>{
-    let dataEdit = {
+  // Update data character
+  editChara: async (req, res) => {
+    let data = {
       chara_name: req.body.nama,
       chara_size: req.body.ukuran,
       chara_img: req.body.img,
       accessories_id: req.body.accessories_id,
-      include_id: req.body.include_id,
     };
     let id = req.body.chara_id;
-    pool.getConnection(function (err, connection) {
-      if (err) throw err;
-      connection.query(
-        `
-                UPDATE character_anime SET ? WHERE chara_id = ?;
-                `,
-        [dataEdit, id],
-        function (error, results) {
-          if (error) throw error;
-          res.send({
-            success: true,
-            message: "Berhasil edit data!",
-          });
-        }
-      );
-      connection.release();
+
+    const results = await pool.promise().query(
+      `
+      UPDATE character_anime SET ? WHERE chara_id = ?;
+      `,
+      [data, id]
+    );
+    res.status(200).send({
+      success: true,
+      message: "Berhasil edit data!",
+      data: results[0],
     });
-  }
-  // Delete data karyawan
-  , deleteDataKaryawan: async(req, res)=>{
+  },
+
+  // Delete data character
+  deleteChara: async (req, res) => {
     let id = req.body.id;
-    pool.getConnection(function (err, connection) {
-      if (err) throw err;
-      connection.query(
-        `
-                DELETE FROM character_anime WHERE chara_id = ?;
-                `,
-        [id],
-        function (error, results) {
-          if (error) throw error;
-          res.send({
-            success: true,
-            message: "Berhasil hapus data!",
-          });
-        }
-      );
-      connection.release();
+
+    const results = await pool.promise().query(
+      `
+      DELETE FROM character_anime WHERE chara_id = ?;
+      `,
+      [id]
+    );
+    res.status(200).send({
+      success: true,
+      message: "Berhasil hapus data!",
+      data: results[0],
     });
-  }
-
-  ,
-
+  },
 };

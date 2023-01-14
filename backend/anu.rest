@@ -2,15 +2,27 @@ POST   http://localhost:8080/login
 Content-Type: application/json
 
 {
-    "username": "rahmat",
-    "password": "rahmat"
+    "username": "mustika",
+    "password": "mumus"
 }
 ####
-
 GET  http://localhost:8080/v
 ####
 
-GET  http://localhost:8080/z
-
+GET  http://localhost:8080/logout
 ###
 GET  http://localhost:8080/products
+###
+GET http://localhost:8080/profile
+
+###
+POST  http://localhost:8080/datapersonal/add
+
+{
+      "akun_sos": "ig:korneloz",
+      "no_wa": "0822382",
+      "no_sdr": "93489",
+      "img_ktp": "asosas",
+      "img_personal": "okeoaskoas",
+      "img_kk": "okeloaskkas"
+}
