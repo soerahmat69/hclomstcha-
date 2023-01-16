@@ -28,7 +28,6 @@ const Login = () => {
   // const history = useHistory();
   const submitlogin = (e) => {
       e.preventDefault();
-      console.log(valid)
       const loged = {
         username: loging.username,
         password: loging.password
@@ -39,11 +38,12 @@ const Login = () => {
         .then((response) => {
 
           if(response.status === 200){
+            if(response.data.data[0].role === "user"){
             navigate('/dashboard')
-            // console.log("succsess")
+            }else if(response.data.data[0].role === "admin"){
+              navigate('/admin/dashboard')
+            }
 
-          }else{
-            console.log("anu enak")
           }
           
         })

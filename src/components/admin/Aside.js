@@ -61,7 +61,7 @@ const Aside = () => {
             </div>
           </li>
           <li onClick={()=>{
-            navigate("/booking");
+            navigate("/admin/product");
           }} className="mx-auto cursor-pointer">
             <div>
               <svg

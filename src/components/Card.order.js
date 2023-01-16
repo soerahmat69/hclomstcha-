@@ -25,7 +25,7 @@ const Card = () => {
   if (products.length > 0) {
     return products.map((chara) => {
       return (
-        <card className="rounded-md  overflow-hidden drop-shadow-md bg-[#D9D9D9]] bg-white w-[180px] h-[270px]" key={chara}>
+        <card className="rounded-md  overflow-hidden drop-shadow-md bg-white w-[180px] h-[270px]" key={chara}>
           <div className={`w-full rounded-md h-[185px] bg-green-500`}></div>
           <div className="px-3 py-2">
             <h1 className="font-reguler font-['poppins']">
@@ -40,7 +40,7 @@ const Card = () => {
       );
     });
   } else {
-    return <div className="absolute">NO DATA</div>;
+    return <div className="text-center">NO DATA</div>;
   }
 };
 

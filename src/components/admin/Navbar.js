@@ -20,9 +20,8 @@ const Navbar = () => {
 
 
   return (
-    <>
-      <navbar className="">
-        <ul className="px-[70px] ring-1 ring-black h-[90px] flex items-center justify-between ">
+      <navbar className=" ">
+        <ul className=" px-[70px] ring-1 ring-black h-[90px] flex items-center justify-between ">
           <ul className="flex flex-row ">
             <li className="mr-[48px] font-['poppins'] text-[28px] font-reguler">rental</li>
             <li className=" text-[28px] font-['poppins'] font-reguler">pricing</li>
@@ -39,7 +38,6 @@ const Navbar = () => {
           </li>
         </ul>
       </navbar>
-      </>
   );
 };
 

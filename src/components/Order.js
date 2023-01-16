@@ -1,46 +1,55 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Aside from "./Aside";
 import Navbar from "./Navbar";
+import { useState,useEffect } from "react";
+import { useParams } from "react-router-dom";
+import OrderYes from "./Order.yes";
+import axios from "axios";
 
 const Order = () => {
+  let url = "http://localhost:8080/products"
+  let id = useParams()
+  let [chara,getChara] = useState([])
+  let [getorderz,setorderyes] = useState(false)
+
   let Tit = () => {
     useEffect(() => {
       document.title = "Order";
     }, []);
   };
 
-  return (
-    <div className=" overflow-x-hidden">
-      <div className="fixed w-screen z-40">
-        <div className="absolute  bg-opacity-60 bg-black  w-screen h-screen   ">
-          <div className="w-[410px] bg-[#FEC9D1] mx-auto flex-row  my-10 rounded-md h-[615px]">
-            <div>
-              <h3 className="text-center mb-[37px] font-['poppins'] text-[26px] font-semibold">
-                pritirin
-              </h3>
-            </div>
-            <div className=" mx-[29px]">
-         <ul className="list-disc">
-          <li className="my-3 whitespace-normal text-justify	">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-</li>
-<li className=" whitespace-normal my-3 text-justify	">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-</li>
-<li className=" whitespace-normal my-3 text-justify	">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-</li>
-         </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+  function ngorder(){
+    
+    if(getorderz === false ){
+      setorderyes(true)
+ 
+    }
+  }
+  useEffect(()=>{
+axios.get(`${url}/${id.id}`).then((response)=>{
+  const overa = response.data.data;
+  getChara(overa);
+}).catch((response)=>{
+
+})
+  },[url,id])
+
+  return  chara.map((charas) => { 
+    return (
+<>
+<div className=" overflow-x-hidden">
+{(getorderz === true)? <OrderYes call={getorderz} back={(getorderz)=>{setorderyes(getorderz)}} chara_id={id} />:""}
+
       <Navbar />
 
       <Aside />
 
+    
       <main className="grid mt-[70px] grid-cols-6">
         <div className="col-start-2 px-3  col-span-4">
           <div className="flex items-center   flex-row">
             <h1 className="mr-[26px] font-['poppins']  whitespace-nowrap text-[39px]">
-              Name Chara
+            {charas.chara_name}
             </h1>
             <div className=" h-[3px] w-full bg-black " />
           </div>
@@ -62,13 +71,13 @@ const Order = () => {
               </div>
               <div className="text-center ">
                 <h3 className=" py-2 text-[30px] font-['poppins'] font-semibold">
-                  L
+                {charas.chara_size}
                 </h3>
                 <h3 className=" py-2 text-[30px] font-['poppins'] font-semibold">
-                  ✔
+                  {(charas.accessories_id)? "✔":"❌"}
                 </h3>
                 <h3 className=" py-2 text-[30px] font-['poppins'] font-semibold">
-                  ✔
+                {(charas.accessories_id)? "✔":"❌"}
                 </h3>
                 <h3 className=" py-2 text-[30px] font-['poppins'] font-semibold">
                   38
@@ -79,13 +88,16 @@ const Order = () => {
               </div>
               <div className="items-center flex border-l-4 border-black">
                 <h3 className=" px-3 py-2 text-[30px] font-['poppins'] font-semibold">
-                  138.000/3DAY
+                Rp {charas.price}/3DAY
                 </h3>
               </div>
             </div>
           </div>
           <div className=" left-[930px] bottom-20 relative">
-            <button className=" absolute w-[130px]  rounded-md text-[31px] bg-[#916FA1] h-[50px]">
+            <button onClick={()=>{
+             ngorder()
+             console.log("bengakk")
+            }}  className=" absolute w-[130px]  rounded-md text-[31px] bg-[#916FA1] h-[50px]">
               <p className="text-[26px] font-[poppins] font-semibold text-white">
                 booking
               </p>
@@ -95,7 +107,8 @@ const Order = () => {
       </main>
       <Tit />
     </div>
-  );
+    </>
+  )})
 };
 
 export default Order;
