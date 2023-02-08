@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AdmProduct = ({ call, edit, datas }) => {
   const [getBooking, setBooking] = useState("");
+  let navigate = useNavigate()
   let [data, setdata] = useState({
     chara_name: "",
     chara_size: "",
     price: "",
     chara_weight: "",
     chara_img: null,
+    chara_id:null
   });
 
   
@@ -49,7 +52,8 @@ const AdmProduct = ({ call, edit, datas }) => {
               scope="row"
               className="py-4 px-6 font-medium text-center  whitespace-nowrap "
             >
-              <div className="mx-auto w-[120px] rounded-md h-[140px] bg-black"></div>
+              <div className=" "> <img className="mx-auto w-[120px] rounded-md h-[140px]"  src={`http://localhost:8080/etc/images/${res.chara_img}`}></img></div>
+         
             </th>
             <td  className="py-4 px-6 text-center  font-['poppins'] ">
               {res.chara_name}
@@ -64,7 +68,9 @@ const AdmProduct = ({ call, edit, datas }) => {
             <td class="px-6 flex py-[23%] gap-2 ">
               <button
                 onClick={() => {
-                  {setdata({ ...data, price: res.price,chara_name:res.chara_name,chara_img:res.chara_img,chara_size:res.chara_size,chara_weight:res.chara_weight })}
+                  
+                    setdata({ ...data, price: res.price,chara_name:res.chara_name,chara_img:res.chara_img,chara_size:res.chara_size,chara_weight:res.chara_weight,chara_id:res.chara_id })
+                  
                   if (call === false && data.chara_img !== null ) {
                     edit(true);
                     datas(data);
@@ -76,9 +82,7 @@ const AdmProduct = ({ call, edit, datas }) => {
               </button>
               <button
                 onClick={() => {
-                  if (call === false) {
-                    // include(true)
-                  }
+                 navigate(`/admin/include/${res.chara_id}`)
                 }}
                 className=" px-4 mx-auto bg-[#916FA1]  font-['poppins']  rounded-md text-white py-2"
               >

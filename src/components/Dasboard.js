@@ -1,15 +1,22 @@
 import React, { useEffect } from "react";
+
 import Card from "./Card.product";
 import Aside from "./Aside";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+
+const Dashboard = ({user}) => {
+
+  let navigate = useNavigate()
   let Tit = () => {
     useEffect(() => {
       document.title = "Dasboard";
+      if(user !== "user"){
+        navigate("/")
+      }
     }, []);
   };
-
   return (
     <>
       <Navbar />

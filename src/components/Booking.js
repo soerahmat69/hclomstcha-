@@ -3,18 +3,23 @@ import Aside from "./Aside";
 import Navbar from "./Navbar";
 import Peraturan from "./Peraturan";
 import TableBooking from "./Booking.table";
+import { useNavigate } from "react-router-dom";
 
-const Booking = () => {
-  let [orders,setOrders] = useState(false)
-  let [bookingz,setbooking] = useState([])
-
+const Booking = ({user}) => {
+  let [orders,setOrders] = useState(false);
+  let [bookingz,setbooking] = useState([]);
+  let [total,setotal] = useState(null);
+  let navigate = useNavigate()
   let Tit = () => {
     useEffect(() => {
       document.title = "Booking";
+      if(user !== "user"){
+        navigate("/")
+      }
     }, []);
   };
   
-  
+  console.log(bookingz)
   
   function order(){
     if(orders === false ){
@@ -28,7 +33,7 @@ const Booking = () => {
   
   return (
     <>
-     {(orders === true)? <Peraturan call={bookingz}  />:""}
+     {(orders === true)? <Peraturan call={bookingz} totalz={total}  />:""}
 
       <Navbar />
 
@@ -71,10 +76,10 @@ const Booking = () => {
             </tr>
         </thead>
         <tbody>
-   <TableBooking call={bookingz} back={(bookingz)=>{setbooking(bookingz)}} />
+   <TableBooking call={bookingz} back={(bookingz)=>{setbooking(bookingz)}} ttl={(total)=>{setotal(total)}} />
    <tr  className="bg-white border-b  ">
             <td colSpan="5" className="py-4 px-6 text-[17px] font-medium   font-['poppins'] text-end">
-                     <p className="text-[17px] font-semibold   font-['poppins'] "><span className="text-[17px] font-medium  font-['poppins']">Total </span>Rp0 </p>
+                     <p className="text-[17px] font-semibold   font-['poppins'] "><span className="text-[17px] font-medium  font-['poppins']">Total </span>Rp {(total === null)? "0":total}</p>
                 </td>
             </tr>
         </tbody>

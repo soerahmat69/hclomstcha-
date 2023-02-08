@@ -1,11 +1,21 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
-  let Tit = () => {
+const Dashboard = ({admin}) => {
+
+  let navigate = useNavigate()
+
+  useEffect(()=>{
+    if(admin !== "admin"){
+      navigate("/")
+    }
+  },[])
+let Tit = () => {
     useEffect(() => {
       document.title = "Dasboard Admin";
+      
     }, []);
   };
 

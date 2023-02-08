@@ -7,12 +7,12 @@ import { useNavigate } from 'react-router-dom'
 
 
 const url = "http://localhost:8080/login";
-const Login = () => {
+const Login = ({user,admin}) => {
   let Title = () => {
     document.title = "Login";
   };
 
-  let  [valid, setValid] = useState(false);
+
   const [loging,setLoging] = useState({username:"",password:""});
   const navigate = useNavigate()
  
@@ -38,10 +38,15 @@ const Login = () => {
         .then((response) => {
 
           if(response.status === 200){
+            
             if(response.data.data[0].role === "user"){
             navigate('/dashboard')
+            localStorage.setItem('user','user')
+            user("user")
             }else if(response.data.data[0].role === "admin"){
               navigate('/admin/dashboard')
+              localStorage.setItem('admin','admin')
+              admin("admin")
             }
 
           }
@@ -49,7 +54,12 @@ const Login = () => {
         })
         .catch((error)=>{
           if(error.response){
-            console.log(error.response.status)
+            if(error.response.status === 400){
+              alert("ini ada yang kosong fieldnya jon")
+            }else if(error.response.status === 500){
+              alert("yahh , katasandi/passwordmu kamu salah jon")
+            }
+            
           }
         });
     }
@@ -59,10 +69,10 @@ const Login = () => {
   return (
     <div className="grid grid-cols-5  ring-1 ring-black  ">
       <Title />
-      <div className="col-span-3 max-h-screen  overflow-hidden ">
-        <div className="w-44 h-44 rounded-full relative left-[-40px] top-[-65px] bg-[#FEC9D1]"></div>
+      <div className="col-span-3 max-h-screen  overflow-hidden "> 
+        <div className="w-44 h-44 rounded-full  animate-[bounce_6s_ease-in-out_infinite] relative left-[-40px] top-[-65px] bg-[#FEC9D1]"></div>
         <div className="relative ">
-          <div className="w-[796px] z-10 h-[756px] rounded-full  absolute  top-[20px] left-[-330px] bg-[#FEC9D1]"></div>
+          <div className="w-[796px] z-10 h-[756px] rounded-full   absolute  top-[20px] left-[-330px] bg-[#FEC9D1]"></div>
           <div className="absolute mt-20 ml-[350px] z-20">
             <p className="text-black font-thin font-['poppins'] text-[79px] ">
               Making Your
@@ -75,9 +85,9 @@ const Login = () => {
         <img
           src={hero}
           alt={alt}
-          className="w-[346px] relative bottom-[80px] left-[0]  z-40"
+          className="w-[346px] relative bottom-[80px] left-[0] slide-in-blurred-left z-40"
         />
-        <div className="w-[200px] h-[200px] rounded-full absolute right-[730px] bottom-[19px] bg-[#FEC9D1]"></div>
+        <div className="w-[200px] h-[200px]  animate-[bounce_4s_ease-in-out_infinite] rounded-full absolute right-[730px] bottom-[19px] bg-[#FEC9D1]"></div>
       </div>
       <div className=" bg-[#FEC9D1] col-span-2">
         <div className="mt-[120px] flex flex-col ">
@@ -94,7 +104,7 @@ const Login = () => {
                 onChange={valueSubmit}
                 value={loging.username}
                 name="username"
-                placeholder="email@"
+                placeholder="username"
                 type="text"
                 className="font-['poppins'] ring-1 ring-black w-[290px] py-5 px-3 rounded-md text-[31px] h-[50px]"
               />
@@ -121,7 +131,7 @@ const Login = () => {
           <div className="text-center mt-4 ">
             <p className="font-normal font-[poppins]">
               create account,{" "}
-              <Link className=" font-extrabold " to="/Dashboard">
+              <Link className=" font-extrabold " to="/signup">
                 {" "}
                 SignUp
               </Link>

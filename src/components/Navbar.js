@@ -6,11 +6,15 @@ import axios from "axios";
 const Navbar = () => {
 
     const url = "http://localhost:8080/logout"
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const logout = () =>{
+      window.localStorage.clear();
+      localStorage.removeItem('admin');
+
       axios.post(`${url}`).then((response)=>{
         if(response.status === 200){
+      
           navigate('/')
         }
       }).catch((error)=>{

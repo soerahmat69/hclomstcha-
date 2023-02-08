@@ -5,16 +5,19 @@ import { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import OrderYes from "./Order.yes";
 import axios from "axios";
-
-const Order = () => {
+import { useNavigate } from "react-router-dom";
+const Order = ({user}) => {
   let url = "http://localhost:8080/products"
   let id = useParams()
   let [chara,getChara] = useState([])
   let [getorderz,setorderyes] = useState(false)
-
+let navigate = useNavigate()
   let Tit = () => {
     useEffect(() => {
       document.title = "Order";
+      if(user !== "user"){
+        navigate("/")
+      }
     }, []);
   };
 
@@ -54,7 +57,8 @@ axios.get(`${url}/${id.id}`).then((response)=>{
             <div className=" h-[3px] w-full bg-black " />
           </div>
           <div className="   justify-items-start  flex gap-20   py-[24px]">
-            <div className="  rounded-xl bg-slate-500 w-[325px]  h-[415px] " />
+            {/* <div className=" " /> */}
+            <img className=" rounded-xl bg-slate-500 w-[325px]  h-[415px] " src={`http://localhost:8080/etc/images/${charas.chara_img}`}></img>
             <div className=" h-full  w-[280px]  justify-around flex flex-auto">
               <div className=" justify-start ">
                 <h3 className=" py-2 text-[30px] font-['poppins']">

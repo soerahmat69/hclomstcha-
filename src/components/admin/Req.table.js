@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const RequestTable = ({ call, back, datas }) => {
-  const [getBooking, setBooking] = useState("");
+  const [getBooking, setBooking] = useState([]);
   let klik = 0;
+  let navigate = useNavigate()
   let [data, setdata] = useState({
     chara_name: "",
     chara_size: "",
@@ -26,8 +28,9 @@ const RequestTable = ({ call, back, datas }) => {
 
   const del = (id) => {
     axios
-      .post(`http://localhost:8080/admin/products/delete/${id}`)
+      .post(`http://localhost:8080/admin/order/req/delete/${id}`)
       .then((response) => {
+        alert("kamu telah menghapus request, harap chat user")
         axios
           .get("http://localhost:8080/admin/order/req")
           .then((response) => {
@@ -36,7 +39,9 @@ const RequestTable = ({ call, back, datas }) => {
           })
           .catch((error) => {});
       })
-      .catch((error) => {});
+      .catch((error) => {
+        alert("kamu gagal nolak jon")
+      });
   };
 
  
@@ -83,17 +88,19 @@ const RequestTable = ({ call, back, datas }) => {
               </button>
               <button
                 onClick={() => {
-                  
+                  navigate(`/admin/biodata/${res.user_id}`)
                 }}
                 className=" px-4 mx-auto bg-[#916FA1]  font-['poppins']  rounded-md text-white py-2"
               >
                 biodata
               </button>
               <button
-                onClick={() =>{del(res.chara_id)}}
+                onClick={() =>{
+                  
+                  del(res.order_id)}}
                 className=" px-4 mx-auto bg-[#916FA1]  font-['poppins']  rounded-md text-white py-2"
               >
-                delete
+                reject
               </button>
             </td>
 

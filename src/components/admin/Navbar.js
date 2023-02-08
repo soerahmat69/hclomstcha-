@@ -11,6 +11,7 @@ const Navbar = () => {
     const logout = () =>{
       axios.post(`${url}`).then((response)=>{
         if(response.status === 200){
+          localStorage.clear()
           navigate('/')
         }
       }).catch((error)=>{

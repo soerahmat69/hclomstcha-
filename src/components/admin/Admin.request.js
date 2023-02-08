@@ -1,17 +1,21 @@
 import React, { useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Aside from "./Aside";
-import EditProd from "./Edit.product";
 import Navbar from "./Navbar";
 import RequestTable from "./Req.table";
 import ReqAcc from "./Request.accept";
 
-const AdminReq = () => {
+const AdminReq = ({admin}) => {
   let [klik,setklik] = useState(false)
   let [klika,setklika] = useState(false)
   let [edit,setedit] = useState("")
+  let navigate = useNavigate();
   let Tit = () => {
     useEffect(() => {
       document.title = "Request";
+      if(admin !== "admin"){
+        navigate("/")
+      }
     }, []);
   };
 console.log(edit)
@@ -30,6 +34,13 @@ console.log(edit)
             </h1>
             <div className=" h-[3px] w-full bg-black " />
           </div>
+          <div className="relative mb-6">
+                <button  onClick={()=>{
+                  navigate("/admin/accept")
+                }} className=" px-4 mx-auto top-0 right-0 absolute  bg-[#916FA1] font-['poppins']  text-white rounded-md py-2">
+                  Request Accept
+                </button>
+              </div>
           <div className="  px-3   justify-items-center   py-[24px]">
             <div className="overflow-x-auto relative">
               

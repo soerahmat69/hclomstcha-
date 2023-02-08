@@ -8,7 +8,6 @@ let [form,setform] = useState({chara_name: "",
     price: "",
     chara_weight:"",
     chara_img: null,chara_id:null})
-
   const submitData = () =>{
     const formData = new FormData()
     formData.append("chara_name",form.chara_name)
@@ -17,7 +16,7 @@ let [form,setform] = useState({chara_name: "",
     formData.append("chara_weight",form.chara_weight)
     formData.append("chara_img",form.chara_img)
 console.log(formData)
-    axios.put(`http://localhost:8080/admin/products/edit/${form.chara_id}`,formData).then((res)=>{
+    axios.put(`http://localhost:8080/admin/products/edit/${call["chara_id"]}`,formData).then((res)=>{
 console.log(res.data)
     }).catch((err)=>{
 console.log(err)
@@ -43,7 +42,7 @@ console.log(err)
 
               <div className=" h-max  flex flex-col">
                 <form onSubmit={submitData}>
-                  <div className=" mx-[29px] h-[470px]">
+                  <div className=" mx-[29px] h-[470px] overflow-y-auto">
                   <div className="flex-col flex mx-2 mb-4">
                       <label className="font-['poppins'] text-[26px] font-medium">
                         upload gambar
@@ -54,14 +53,9 @@ console.log(err)
                         setform({...form,chara_img: me})
                       }}
                         className="h-[42px]  ring-1  ring-black rounded-md"
+                        // file={call["chara_img"]}
                       />
-                       <input
-                        type="number" onChange={(e)=>{
-                          let me = e.target.value 
-                        setform({...form,chara_id: me})
-                      }}
-                        className="h-[42px]  ring-1  ring-black rounded-md"
-                      />
+                       
                     </div>
                     <div className="flex-col flex mx-2 mb-4">
                       <label className="font-['poppins'] text-[26px] font-medium">
@@ -73,6 +67,7 @@ console.log(err)
                         setform({...form,chara_name: me})
                       }}
                         className="h-[42px]  ring-1  ring-black rounded-md"
+                        // value={`${call["chara_name"]}`}
                       />
                     </div>
                     <div className="flex-col flex mx-2 mb-4">
@@ -85,6 +80,7 @@ console.log(err)
                         setform({...form,chara_size: me})
                       }}
                         className="h-[42px]  ring-1  ring-black rounded-md"
+                        // value={call["chara_size"]}
                       />
                     </div>
                     <div className="flex-col flex mx-2 mb-4">
@@ -97,6 +93,7 @@ console.log(err)
                         setform({...form,chara_weight: me})
                       }}
                         className="h-[42px]  ring-1  ring-black rounded-md"
+                        // value={call["chara_weight"]}
                       />
                     </div>
                     <div className="flex-col flex mx-2 mb-4">
@@ -109,6 +106,7 @@ console.log(err)
                         setform({...form,price: me})
                       }}
                         className="h-[42px]  ring-1  ring-black rounded-md"
+                        // value={call["price"]}
                       />
                     </div>
                  

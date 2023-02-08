@@ -4,7 +4,7 @@ import axios from "axios";
 import { data } from "autoprefixer";
 // import { useNavigate } from "react-router-dom";
 
-const Peraturan = (call) => {
+const Peraturan = ({call,totalz}) => {
   let [read, setR] = useState(false);
   let [ongkir, setongkir] = useState("");
   let [tanggal, settanggal] = useState("");
@@ -15,6 +15,7 @@ const Peraturan = (call) => {
   let [kot, setkot] = useState("");
   let [kurir, setkurir] = useState("");
   let peraturan = document.getElementsByName("peraturan");
+
 
   useEffect(() => {
     axios
@@ -36,8 +37,11 @@ const Peraturan = (call) => {
       .catch((error) => {
         console.log(error);
       });
+
+
   }, []);
 
+  
   function readP() {
     if (peraturan[0].checked === true) {
       setR(peraturan[0].checked);
@@ -91,7 +95,7 @@ const Peraturan = (call) => {
 
               <div className=" h-max  flex flex-col">
                 <form onSubmit={submitBooking}>
-                  <div className=" mx-[29px] h-[470px]">
+                  <div className=" mx-[29px] h-[470px] overflow-y-auto">
                     <div className="flex-col flex mx-2 mb-4">
                       <label className="font-['poppins'] text-[26px] font-medium">
                         Tanggal Rental{" "}
@@ -112,7 +116,7 @@ const Peraturan = (call) => {
                           setprov(me);
                         }}
                         name="provinsi"
-                        className=""
+                        className="rounded-md"
                       >
                         <option selected>pilih provinsi</option>
                         {Array.from(provinsi).map((r) => {
@@ -132,7 +136,7 @@ const Peraturan = (call) => {
                           setkot(me);
                         }}
                         name="kota"
-                        className=""
+                        className="rounded-md"
                       >
                         <option selected>pilih kota</option>
                         {Array.from(kota).map((r) => {
@@ -168,7 +172,7 @@ const Peraturan = (call) => {
                           setongkir(me);
                         }}
                         name="kurir"
-                        className=""
+                        className="rounded-md"
                       >
                         <option selected>pilih service</option>
                         {Array.from(kurir).map((r) => {
@@ -191,6 +195,17 @@ const Peraturan = (call) => {
                         className="h-[42px]  ring-1  ring-black rounded-md"
                       />
                     </div>
+                    <div className="flex-col flex mx-2 mb-4">
+                      <label className="font-['poppins'] text-[26px] font-medium">
+                        Total Biaya{" "}
+                      </label>
+                      <input
+                        type="number"
+                        value={parseInt(totalz) + parseInt(ongkir)} disabled
+                        className="h-[42px]  ring-1  ring-black rounded-md"
+                      />
+                    </div>
+               
                     <div className="flex-col flex mx-2 mb-4">
                       <label className="font-['poppins'] text-[26px] font-medium">
                         Bukti Pembayaran{" "}

@@ -5,16 +5,22 @@ import EditProfil from "./Edit.profle";
 import EditPassword from "./Edit.password";
 import EditPersonal from "./Edit.personal";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Profile = () => {
+const Profile = ({user}) => {
   let [profileC,setProfileC] = useState(false)
   let [PersonC,setPersonC] = useState(false)
   let [PasswordC,setPasswordC] = useState(false)
   let [getprofile,setProfile] = useState(false)
-  let [getpersonal,setpersonal]= useState(false)
+  let [getpersonal,setpersonal]= useState("")
+let navigate = useNavigate()
+
   let Tit = () => {
     useEffect(() => {
       document.title = "Profile";
+      if(user !== "user"){
+        navigate("/")
+      }
     
     }, []);
   };
@@ -41,7 +47,7 @@ const Profile = () => {
       })
       .catch((error) => {
         // if (error.response.status === 401) {
-        //   navigate("/");
+console.log(error)
         // }
       });
   },[]);
@@ -120,19 +126,22 @@ const Profile = () => {
             </div>
             <div>
               <h1 className="font-['poppins'] text-[35px]">Personal Data</h1>
-
+              {(getpersonal.length <= 0)? 
+              <div>
               <div className="flex items-center">
-                <div className="w-[15px] h-[15px] bg-red-600 rounded-full mx-2"></div>
-                 <h1 className="font-['poppins'] text-[20px]">Uknown Adrress</h1>
-            </div>
+                 <div className="w-[15px] h-[15px] bg-red-600 rounded-full mx-2"></div>
+                  <h1 className="font-['poppins'] text-[20px]">Uknown Adrress</h1>
+             </div>
+             <div className="flex items-center">
+                 <div className="w-[15px] h-[15px] bg-red-600 rounded-full mx-2"></div>
+                  <h1 className="font-['poppins'] text-[20px]">Uknown Name</h1>
+ </div>
             <div className="flex items-center">
-                <div className="w-[15px] h-[15px] bg-red-600 rounded-full mx-2"></div>
-                 <h1 className="font-['poppins'] text-[20px]">Uknown Name</h1>
-            </div>
-            <div className="flex items-center">
-                <div className="w-[15px] h-[15px] bg-red-600 rounded-full mx-2"></div>
+               <div className="w-[15px] h-[15px] bg-red-600 rounded-full mx-2"></div>
                  <h1 className="font-['poppins'] text-[20px]">Uknown Number Phone</h1>
             </div>
+            </div> :""} 
+             
             </div>
            
           </div>
@@ -145,7 +154,7 @@ const Profile = () => {
               <h1 className="font-['poppins'] mb-[31px] font-medium  text-[30px]">{(email.length > 8)? email.substring(0,8)+"...": email}</h1>
             </div>
             <div>
-              <h1 className="font-['poppins'] font-medium mb-[31px]  text-[30px]">{(getpersonal.length > 0)?Math.floor(Object.keys(getpersonal[0]).length * 14.28571428571429): "no"}%</h1>
+              <h1 className="font-['poppins'] font-medium mb-[31px]  text-[30px]">{(getpersonal.length > 0 )?Math.floor(Object.keys(getpersonal[0]).length * 14.28571428571429): "0"}%</h1>
             </div>
           </div>
           </div>

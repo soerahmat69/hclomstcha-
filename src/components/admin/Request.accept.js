@@ -3,8 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 
 const ReqAcc = ({call, back,datas}) => {
-let [form,setform] = useState({estimasi_barang: "",
-status_order: ""})
+let [form,setform] = useState({no_resi: "",
+status_order: "",pengembalian:""})
 
 
   const submitData = () =>{
@@ -36,24 +36,40 @@ status_order: ""})
                 
                     <div className="flex-col flex mx-2 mb-4">
                       <label className="font-['poppins'] text-[26px] font-medium">
-                        estimasi barang
+                        No Resi
                       </label>
                       <input
                         type="text" onChange={(e)=>{
                           let me = e.target.value 
-                        setform({...form,estimasi_barang: me})
+                        setform({...form,no_resi: me})
                       }}
                         className="h-[42px]  ring-1  ring-black rounded-md"
                       />
                     </div>
                     <div className="flex-col flex mx-2 mb-4">
                       <label className="font-['poppins'] text-[26px] font-medium">
-                        status order
+                        Status Order
                       </label>
-                      <input
+                      <select
                         type="text" onChange={(e)=>{
                           let me = e.target.value 
                         setform({...form,status_order: me})
+                      }}
+                        className="h-[42px]  ring-1  ring-black rounded-md"
+                      >
+                        <option className="font-['poppins']" selected >pilih status order</option>
+                        <option className="font-['poppins']" value="sedang dikirim">sedang dikirim</option>
+                        <option className="font-['poppins']" value="sedang di pinjam">sedang di pinjam</option>
+                      </select>
+                    </div>
+                    <div className="flex-col flex mx-2 mb-4">
+                      <label className="font-['poppins'] text-[26px] font-medium">
+                        Tanggal Pengembalian
+                      </label>
+                      <input
+                        type="date" onChange={(e)=>{
+                          let me = e.target.value 
+                        setform({...form,pengembalian: me})
                       }}
                         className="h-[42px]  ring-1  ring-black rounded-md"
                       />

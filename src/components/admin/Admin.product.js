@@ -6,21 +6,25 @@ import AdmProduct from "./Product.table";
 import AddProd from "./Add.product";
 import { useNavigate } from "react-router-dom";
 
-const ProductA = () => {
+const ProductA = ({admin}) => {
   let [klik,setklik] = useState(false)
   let [klika,setklika] = useState(false)
-  let [edit,setedit] = useState("")
+  let [edit,setedit] = useState([])
   let navigate = useNavigate()
   let Tit = () => {
     useEffect(() => {
       document.title = "Product";
+      if(admin !== "admin"){
+        navigate("/")
+      }
     }, []);
   };
 console.log(edit)
   return (
     <>
-    {(klik === true)? <EditProd call={klik} back={(klik)=>{setklik(klik)}}  />:""}
+    {(klik === true)? <EditProd call={edit} back={(klik)=>{setklik(klik)}}   />:""}
     {(klika === true)? <AddProd call={klika} back={(klik)=>{setklika(klik)}}  />:""}
+     
       <Navbar />
 
       <Aside />
