@@ -1,6 +1,5 @@
 const config = require("../config/database");
 const mysql = require("mysql2");
-const { json } = require("body-parser");
 const pool = mysql.createPool(config);
 
 pool.on("error", (err) => {
@@ -11,8 +10,8 @@ module.exports = {
   getOrder: async (req, res, next) => {
     const results = await pool.promise().query(
       `
-                SELECT * FROM character_order;
-                `
+                SELECT * FROM character_order WHERE user_id = ? ;
+                `,[req.autis.user_id]
     );
 
     res.status(200).send({
@@ -90,9 +89,45 @@ module.exports = {
   getReqOrderAcc: async (req, res, next) => {
     const results = await pool.promise().query(
       `
-                SELECT * FROM character_order WHERE bukti_payment IS NOT NULL;
+      SELECT  character_order.order_id,user.username,character_anime.chara_name,character_order.tgl_rental FROM character_order 
+      INNER JOIN character_anime ON character_order.chara_id = character_anime.chara_id 
+      INNER JOIN user ON character_order.user_id = user.user_id
+      LEFT JOIN character_order_acc ON character_order.order_id = character_order_acc.order_id
+      WHERE bukti_payment IS NOT NULL AND character_order_acc.order_id IS NULL;
                 `
+    );  
+
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
+    });
+  },
+  deleteOrderReq: async (req, res) => {
+    let id = req.params.order_id;
+
+    const results = await pool.promise().query(
+      `
+      DELETE FROM character_order WHERE order_id = ?;
+      `,
+      [id]
     );
+    res.status(200).send({
+      success: true,
+      message: "Berhasil menolak orderan!",
+      data: results[0],
+    });
+  },
+  getAccOrderReq: async (req, res, next) => {
+    const results = await pool.promise().query(
+      `
+      SELECT  character_order.order_id,user.username,character_anime.chara_name,user.user_id,character_order.tgl_rental FROM character_order 
+      INNER JOIN character_anime ON character_order.chara_id = character_anime.chara_id 
+      INNER JOIN user ON character_order.user_id = user.user_id
+      LEFT JOIN character_order_acc ON character_order.order_id = character_order_acc.order_id
+      WHERE bukti_payment IS NOT NULL AND character_order_acc.order_id IS NOT NULL;
+                `
+    );  
 
     res.status(200).send({
       success: true,
@@ -101,10 +136,13 @@ module.exports = {
     });
   },
   getOrderAcc: async (req, res, next) => {
+    let user_id = req.autis.user_id
     const results = await pool.promise().query(
       `
-                SELECT * FROM character_order_acc INNER JOIN character_order ON character_order_acc.order_id = character_order.order_id;
-                `
+                SELECT DATE_FORMAT(character_order.tgl_rental,"%d %M %Y") AS tgl_rental,character_anime.chara_name,character_order.order_id,status_order,DATE_FORMAT(character_order_acc.pengembalian,"%d %M %Y") AS pengembalian,character_order_acc.no_resi FROM character_order_acc
+                INNER JOIN character_order ON character_order_acc.order_id= character_order.order_id 
+                INNER JOIN character_anime ON character_anime.chara_id= character_order.chara_id WHERE character_order.user_id = ?;
+                `,[user_id]
     );
 
     res.status(200).send({
@@ -113,10 +151,46 @@ module.exports = {
       data: results[0],
     });
   },
+  getOrderAccList: async (req, res, next) => {
 
+    const results = await pool.promise().query(
+      `
+                SELECT DATE_FORMAT(character_order.tgl_rental,"%d %M %Y") AS tgl_rental,user.username,character_anime.chara_name,character_order.order_id,status_order,DATE_FORMAT(character_order_acc.pengembalian,"%d %M %Y") AS pengembalian,character_order_acc.no_resi FROM character_order_acc
+                INNER JOIN character_order ON character_order_acc.order_id= character_order.order_id 
+                INNER JOIN user ON user.user_id = character_order.user_id 
+                INNER JOIN character_anime ON character_anime.chara_id= character_order.chara_id
+                `,
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
+    });
+  },
+  getOrderAccId: async (req, res, next) => {
+
+    const results = await pool.promise().query(
+      `
+                SELECT DATE_FORMAT(character_order.tgl_rental,"%d %M %Y") AS tgl_rental,user.username,character_anime.chara_name,character_order.order_id,status_order,DATE_FORMAT(character_order_acc.pengembalian,"%d %M %Y") AS pengembalian,character_order_acc.no_resi FROM character_order_acc
+                INNER JOIN character_order ON character_order_acc.order_id= character_order.order_id 
+                INNER JOIN user ON user.user_id = character_order.user_id 
+                INNER JOIN character_anime ON character_anime.chara_id= character_order.chara_id WHERE character_order.order_id = ?
+                `,[req.params.id]
+    );
+
+    
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
+    });
+  },
   editOrderAcc: async (req, res) => {
     let data = {
-      estimasi_barang: req.body.estimasi_barang,
+      order_id: req.params.order_id,
+      no_resi: req.body.no_resi,
+      pengembalian: req.body.pengembalian,
       status_order: req.body.status_order
     };
     let id = req.params.order_id;
@@ -135,7 +209,8 @@ module.exports = {
   addOrderAcc: async (req, res) => {
     let data = {
       order_id: req.params.order_id,
-      estimasi_barang: req.body.estimasi_barang,
+      no_resi: req.body.no_resi,
+      pengembalian: req.body.pengembalian,
       status_order: req.body.status_order
     };
     const results = await pool.promise().query(
@@ -157,6 +232,54 @@ module.exports = {
       DELETE FROM character_order_acc WHERE order_id = ?;
       `,
       [id]
+    );
+    res.status(200).send({
+      success: true,
+      message: "Berhasil menghapus orderan yang di terima!",
+      data: results[0],
+    });
+  },
+  addPengembalian: async (req, res) => {
+    let data = {
+      order_id: req.params.order_id,
+      no_resi: req.body.no_resi,
+      pengiriman: req.body.pengiriman,
+    };
+    const results = await pool.promise().query(
+      `
+      INSERT INTO pengembalian_barang SET ?;
+      `,
+      [data]
+    );
+    res.status(200).send({
+      success: true,
+      message: "Berhasil melakukan pengembalian orderan!"
+
+    });
+  },
+  getOrderRejected: async (req, res, next) => {
+
+    const results = await pool.promise().query(
+      `
+                SELECT * FROM order_rejected
+                INNER JOIN character_anime as w ON w.chara_id = order_rejected.chara_id 
+                INNER JOIN user ON user.user_id = order_rejected.user_id
+                `,[]
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
+    });
+  },
+  deleteOrderRejected: async (req, res) => {
+    
+    const results = await pool.promise().query(
+      `
+      DELETE FROM order_rejected WHERE order_id = ?;
+      `,
+      [req.params.id]
     );
     res.status(200).send({
       success: true,

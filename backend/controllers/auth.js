@@ -17,7 +17,6 @@ module.exports = {
         message: "username and password is blank",
       });
     }
-
     const result = await pool.promise().query(
       `
         SELECT user_id,username,role FROM user where username= ? and password = ?;
@@ -43,23 +42,43 @@ module.exports = {
       
   },
   signup: async (req, res, next) => {
-    
     let data = {
       username: req.body.username,
       email: req.body.email,
       role: "user",
       password: req.body.password,
     };
-    const results = await pool.promise().query(
+    if(data.username !== "" || data.email !== "" || data.password !== ""){
+    const result = await pool.promise().query(
       `
-      INSERT INTO user SET ?;
+      SELECT email FROM user WHERE email = ?;
                 `,
-      [data]
+      [data.email]
     );
+    if(result[0].length > 0){
+       res.status(401).send({
+        success: true,
+        message: "gagal membuat akun!",
+      });
+      }else{
+      const results = await pool.promise().query(
+        `
+        INSERT INTO user SET ?;
+                  `,
+        [data],
+      );
     res.status(200).send({
       success: true,
       message: "Berhasil membuat akun!",
+      data : results[0]
     });
+    }
+  }else{
+    res.status(500).send({
+      success: true,
+      message: "Gagal membuat akun kosong data!",
+    });
+  }
   },
   logout: async (req, res, next) => {
     req.autis.reset();

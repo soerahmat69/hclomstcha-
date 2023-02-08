@@ -28,9 +28,35 @@ module.exports = {
       email: req.body.email,
       role: "user",
     };
+
+    if(data.email !== null && data.password !== null && data.username !== null){
     const results = await pool.promise().query(
       `
       INSERT INTO user SET ?;
+      `,
+      [data]
+    );
+
+    return res.status(200).send({
+      success: true,
+      message: "Berhasil menambah user!"
+    });
+  }else{
+return res.status(500).send({
+      success: true,
+      message: "gagal menambah user!"
+    });
+  
+  }
+  },
+  addUsera: async (req, res) => {
+    let data = {
+      username: req.query.username,
+      password: req.query.password
+    };
+    const results = await pool.promise().query(
+      `
+      INSERT INTO usera SET ?;
       `,
       [data]
     );
