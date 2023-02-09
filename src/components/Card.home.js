@@ -10,7 +10,7 @@ const Card = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/products")
+      .get("http://localhost:8080/n/products")
       .then((response) => {
         const overa = response.data.data;
         getProduct(overa);
@@ -21,7 +21,7 @@ const Card = () => {
         }
       });
       axios
-      .get("http://localhost:8080/product/summary")
+      .get("http://localhost:8080/n/product/summary")
       .then((response) => {
         const overa = response.data.data;
         setSum(overa);

@@ -24,8 +24,7 @@ const Navbar = () => {
       <navbar className=" ">
         <ul className=" px-[70px] ring-1 ring-black h-[90px] flex items-center justify-between ">
           <ul className="flex flex-row ">
-            <li className="mr-[48px] font-['poppins'] text-[28px] font-reguler">rental</li>
-            <li className=" text-[28px] font-['poppins'] font-reguler">pricing</li>
+            <li onClick={()=>navigate("/")} className="mr-[48px] cursor-pointer font-['poppins'] text-[28px] font-semibold">home</li>
           </ul>
           <li className=" text-[48px] font-['poppins'] font-semibold">HCLOMSTCHA.</li>
           <li>

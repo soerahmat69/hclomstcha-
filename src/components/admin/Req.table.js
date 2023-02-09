@@ -59,6 +59,7 @@ const RequestTable = ({ call, back, datas }) => {
               scope="row"
               className="py-4 px-6 font-medium text-center  whitespace-nowrap "
             >
+              {console.log(res.bukti_payment)}
               <a href={`http://localhost:8080/etc/images/${res.bukti_payment}`}>
                 <img className="mx-auto w-[120px] rounded-md h-[140px] " src={`http://localhost:8080/etc/images/${res.bukti_payment}`}></img>
                 </a>

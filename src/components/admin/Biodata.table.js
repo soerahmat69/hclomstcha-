@@ -46,32 +46,32 @@ console.log(id["id"])
             >
               <div className=" ">
                 {" "}
-                <img
+                <a href={`http://localhost:8080/etc/images/${res.img_ktp}`} ><img
                   className="mx-auto w-[120px] rounded-md h-[140px]"
                   src={`http://localhost:8080/etc/images/${res.img_ktp}`}
-                ></img>
+                ></img></a>
               </div>
             </th>
             <td className="py-4 px-6 text-center  font-['poppins'] ">
               <div className=" ">
                 {" "}
-                <img
+                <a href={`http://localhost:8080/etc/images/${res.img_personal}`} ><img
                   className="mx-auto w-[120px] rounded-md h-[140px]"
                   src={`http://localhost:8080/etc/images/${res.img_personal}`}
-                ></img>
+                ></img></a>
               </div>
             </td>
             <td className="py-4 px-6 text-center  font-['poppins'] ">
               <div className=" ">
                 {" "}
-                <img
+                <a href={`http://localhost:8080/etc/images/${res.img_kk}`} ><img
                   className="mx-auto w-[120px] rounded-md h-[140px]"
                   src={`http://localhost:8080/etc/images/${res.img_kk}`}
-                ></img>
+                ></img></a>
               </div>
             </td>
             <td className="py-4 px-6 text-center  font-['poppins'] ">
-              {`${res.akun_sos}`}
+              <a href={`${res.akun_sos}`} > {`${res.akun_sos}`}</a>
             </td>
             <td className="py-4 px-6 text-center  font-['poppins'] ">
               {`${res.no_wa}`}

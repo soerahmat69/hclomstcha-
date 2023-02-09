@@ -20,8 +20,9 @@ const ChatTable = ({call,back,order_id,id}) => {
       });
   },[]);
   const del = (id) => {
+    console.log(id)
     axios
-      .post(`http://localhost:8080/admin/user/chat/delete/${id}`)
+      .delete(`http://localhost:8080/admin/user/chat/delete/${id}`)
       .then((res) => {
         alert("selamat jon anda berhasil menghapus");
         axios
@@ -79,6 +80,7 @@ const ChatTable = ({call,back,order_id,id}) => {
               </button>
               <button
                 onClick={()=>{
+                  console.log(res)
                   del(res.user_id)
                 }}
                 className=" px-4 mx-auto my-3 bg-[#916FA1]  font-['poppins']  rounded-md text-white py-2"

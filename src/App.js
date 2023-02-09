@@ -23,7 +23,7 @@ import IncAcessories from "./components/admin/Admin.include";
 import User from "./components/admin/Admin.user";
 import ChatList from "./components/admin/Admin.chat.list";
 import OrderRejc from "./components/admin/Admin.order.rejected";
-
+import Home from "./components/Home";
 //session 
 axios.defaults.withCredentials = true;
 
@@ -37,14 +37,16 @@ function App() {
     
     <Routers>
       <Routes>
-        <Route exact path="/" element={<Login admin={(id)=>setValidAdmin(id)} user={(id)=>setValidUser(id)} />} />
+        <Route  path="/login" element={<Login admin={(id)=>setValidAdmin(id)} user={(id)=>setValidUser(id)} />} />
         <Route path="/dashboard" element={<Dashboard user={validUser}/>} />
         <Route path="/order/:id" element={<Order user={validUser}/>} />
         <Route path="/profile" element={<Profile user={validUser}/>} />
-        <Route path="/signup" element={<SignUp user={validUser}/>} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/booking" element={<Booking user={validUser}/>} />
         <Route path="/chat" element={<UsrChat user={validUser}/>} />
         <Route path="/riwayat" element={<RiwayatOrd user={validUser}/>} />
+
+        <Route exact path="/" element={<Home user={validUser}/>} />
 
         <Route path="/admin/dashboard" element={<DashboardA admin={validAdmin}/>} />
         <Route path="/admin/product" element={<ProductA admin={validAdmin}/>} />

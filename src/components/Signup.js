@@ -10,10 +10,8 @@ const url = "http://localhost:8080/signup";
 
 const SignUp = ({user}) => {
   let Title = () => {
-    document.title = "Login";
-    if(user !== "user"){
-      navigate("/")
-    }
+    document.title = "Signup";
+   
   };
 
   let  [valid, setValid] = useState(false);

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Booking = ({user}) => {
   let [orders,setOrders] = useState(false);
-  let [bookingz,setbooking] = useState([]);
+  let [bookingz,setbooking] = useState(null);
   let [total,setotal] = useState(null);
   let navigate = useNavigate()
   let Tit = () => {
@@ -19,12 +19,15 @@ const Booking = ({user}) => {
     }, []);
   };
   
-  console.log(bookingz)
-  
   function order(){
     if(orders === false ){
-    setOrders(true)
-    console.log(bookingz)
+  
+    if(bookingz === null){
+      alert("pilih terlebih dahulu yaa")
+      setOrders(false)
+    }else{
+      setOrders(true)
+    }
   }else
     {
   setOrders(false)

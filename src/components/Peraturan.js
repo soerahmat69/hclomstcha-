@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { data } from "autoprefixer";
-// import { useNavigate } from "react-router-dom";
+import { json, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Peraturan = ({call,totalz}) => {
   let [read, setR] = useState(false);
@@ -15,9 +16,12 @@ const Peraturan = ({call,totalz}) => {
   let [kot, setkot] = useState("");
   let [kurir, setkurir] = useState("");
   let peraturan = document.getElementsByName("peraturan");
+  let navigate = useNavigate()
 
+  console.log(call)
 
   useEffect(() => {
+ 
     axios
       .get("http://localhost:8080/provinsi")
       .then((response) => {
@@ -65,16 +69,20 @@ const Peraturan = ({call,totalz}) => {
     const formData = new FormData();
     formData.append("tgl_rental", tanggal);
     formData.append("biaya_ongkir", ongkir);
-    formData.append("order_id", call.call);
+    formData.append("order_id", call);
     formData.append("bukti_payment", bukti.bukti_payment);
 
     axios
       .post(`http://localhost:8080/booking/order`, formData)
-      .then((response) => {})
+      .then((response) => {
+        alert("jika sudah booking, silahkan menunggu admin menerima ya")
+      })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response.status);
-        }
+        // localStorage.setItem('err',err)
+          if(error.response.status === 500){
+            alert("kamu belum mengisika data diri, harap segera mengisi")
+          }
+        
       });
   };
 
