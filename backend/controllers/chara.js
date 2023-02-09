@@ -21,6 +21,19 @@ module.exports = {
       data: results[0],
     });
   },
+  getCharaHome: async (req, res, next) => {
+    const results = await pool.promise().query(
+      `
+                SELECT * FROM character_anime LIMIT 4;
+                `
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
+    });
+  },
   getSumOrd: async (req, res, next) => {
     const results = await pool.promise().query(
       `
@@ -40,7 +53,22 @@ module.exports = {
     let id = req.params.id;
     const results = await pool.promise().query(
       `
-              SELECT * FROM character_anime where chara_id = ?;
+              SELECT * FROM character_anime WHERE chara_id = ?;
+              `,
+      [id]
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Berhasil ambil data!",
+      data: results[0],
+    });
+  },
+  getAcessoriesID: async (req, res) => {
+    let id = req.params.id;
+    const results = await pool.promise().query(
+      `
+              SELECT * FROM acessories_anime WHERE chara_id = ?;
               `,
       [id]
     );

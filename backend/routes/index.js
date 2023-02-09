@@ -18,13 +18,17 @@ const chat = require('../controllers/chat')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
+      if(req.files){
       cb(null, './etc/images')
+      }
     },
     filename: function (req, file, cb) {
       const uniqe = Date.now() + path.extname(file.originalname)
       cb(null, file.fieldname + '-' + uniqe)
     }
   })
+
+
   
   const upload = multer({ storage: storage })
   
@@ -82,15 +86,18 @@ router.post('/admin/personal/delete/:id',VeryLogging,VeryAdmin,personal_data.del
 router.get('/admin/user/chat',VeryLogging,VeryAdmin,chat.getChatList)
 router.get('/admin/user/chat/:id',VeryLogging,VeryAdmin,chat.getChatId)
 router.post('/admin/user/chat/add/:id',VeryLogging,VeryAdmin,chat.addchatTag)
-router.post('/admin/user/chat/delete/:id',VeryLogging,VeryAdmin,chat.deleteChat)
+router.delete('/admin/user/chat/delete/:id',VeryLogging,VeryAdmin,chat.deleteChat)
 router.get('/admin/order/reject',VeryLogging,VeryAdmin,chara_order.getOrderRejected)
 router.post('/admin/reject/delete/:id',VeryLogging,VeryAdmin,chara_order.deleteOrderRejected)
-// user
+
 
 router.get('/products',VeryLogging,VeryUser,getChara)
+router.get('/n/products',chara.getCharaHome)
+router.get('/n/product/summary',chara.getSumOrd)
 router.get('/booking',VeryLogging,VeryUser,chara_booking.getBooking)
 router.post('/booking/add/:chara_id',VeryLogging,VeryUser,chara_booking.addBooking)
 router.get('/products/:id',VeryLogging,VeryUser,getCharaID)
+router.get('/acessories/:id',VeryLogging,VeryUser,chara.getAcessoriesID)
 router.post('/booking/order',VeryLogging,VeryUser,upload.fields([{name: "bukti_payment"}]),chara_order.addOrder)
 router.get('/datapersonal',VeryLogging,personal_data.getPersonal)
 router.post('/datapersonal/add',VeryLogging,VeryUser,upload.fields([{name: "img_ktp"},{name: "img_kk"},{name: "img_personal"}]),personal_data.addPersonal)

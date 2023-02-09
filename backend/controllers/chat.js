@@ -95,7 +95,7 @@ module.exports = {
 
   // Delete data character
   deleteChat: async (req, res) => {
-    let id = req.params.user_id;
+    let id = req.params.id;
     const results = await pool.promise().query(
       `
       DELETE FROM chat WHERE user_id = ?;
