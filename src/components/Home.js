@@ -31,7 +31,7 @@ const Home = ({ user }) => {
       )}
       <Navbar />
 
-      <main className="grid mt-[15px] grid-cols-6">
+      <main className="grid grid-cols-6">
         <div className="col-start-2 px-3  col-span-4">
           <div className="  max-w-max ">
             <h1 className=" font-['poppins']  text-center text-[#916FA1]  font-extrabold text-[111px]">

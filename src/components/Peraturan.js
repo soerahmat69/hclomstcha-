@@ -256,19 +256,32 @@ const Peraturan = ({call,totalz}) => {
                 <div className=" mx-[29px] h-[470px]  overflow-y-hidden">
                   <ul className="  list-item ">
                     <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s,
+                      Dilarang memotong/mencetak wig
                     </li>
                     <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s,
+                      Tidak perlu mencuci kostum
                     </li>
                     <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s,
+                      Menjaga semua barang sampai barang - barng kecil seperti plastik &
+                      hairnet {`(JIKA RUSAK AKAN DI KENAKAN DENDA)`}
+                    </li>
+                    <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
+                      Mengirim foto dan ktp
+                    </li>
+                    <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
+                      Mengirim alamat lengkap
+                    </li>
+                    <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
+                      Fake account tidak di perbolehkan
+                    </li>
+                    <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
+                      Mengirim nomortelpon pihak ke 3
+                    </li>
+                    <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
+                      Penambahan waktu sewa /hari 30k
+                    </li>
+                    <li className=" whitespace-normal my-3 text-justify	font-['poppins']">
+                      Jika ada keterlambatan pengembalian yang telah di tentukan akan dikenakan denda 50k/hari
                     </li>
                   </ul>
                 </div>
