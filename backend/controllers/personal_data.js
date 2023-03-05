@@ -43,7 +43,7 @@ module.exports = {
       akun_sos: req.body.akun_sos,
       no_wa: req.body.no_wa,
       no_sdr: req.body.no_sdr,
-      address: req.body.address,
+      alamat: req.body.address,
       img_ktp: req.files.img_ktp[0].filename,
       img_personal: req.files.img_personal[0].filename,
       img_kk: req.files.img_kk[0].filename,

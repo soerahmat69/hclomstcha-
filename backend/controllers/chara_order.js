@@ -138,7 +138,7 @@ module.exports = {
     let user_id = req.autis.user_id
     const results = await pool.promise().query(
       `
-                SELECT DATE_FORMAT(character_order.tgl_rental,"%d %M %Y") AS tgl_rental,character_anime.chara_name,character_order.order_id,status_order,DATE_FORMAT(character_order_acc.pengembalian,"%d %M %Y") AS pengembalian,character_order_acc.no_resi FROM character_order_acc
+                SELECT DATE_FORMAT(character_order.tgl_rental,"%d %M %Y") AS tgl_rental,character_anime.chara_name,character_anime.price,character_order.order_id,status_order,DATE_FORMAT(character_order_acc.pengembalian,"%d %M %Y") AS pengembalian,character_order_acc.no_resi FROM character_order_acc
                 INNER JOIN character_order ON character_order_acc.order_id= character_order.order_id 
                 INNER JOIN character_anime ON character_anime.chara_id= character_order.chara_id WHERE character_order.user_id = ?;
                 `,[user_id]

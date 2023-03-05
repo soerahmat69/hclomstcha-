@@ -113,7 +113,6 @@ module.exports = {
   // Update data character
   editChara: async (req, res) => {
     if(!req.files){
-      console.log("gagal file")
        return res.status(200).send({
          success: true,
          message: "gagal melakukan tambah data, pastikan gambar telah di upload!",
