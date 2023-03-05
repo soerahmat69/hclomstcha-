@@ -1,10 +1,15 @@
 ## mwehehe
-![image](https://user-images.githubusercontent.com/90734813/222949804-dccf27b6-7d6d-4062-8753-dbc59498a422.png)
 
-![image](https://user-images.githubusercontent.com/90734813/222949817-f70992fd-f232-4a3d-96ff-0707a0433f3f.png)
+##home with login
+![image](https://user-images.githubusercontent.com/90734813/222949936-d40c29cc-e26c-4697-be47-c0a126a9cba1.png)
 
-![image](https://user-images.githubusercontent.com/90734813/222949828-7330ee76-f4dd-4206-b161-1796c24542cd.png)
+##login
+![image](https://user-images.githubusercontent.com/90734813/222950093-c26a1ddc-b212-42c4-9f59-348badc15b82.png)
 
-![image](https://user-images.githubusercontent.com/90734813/222949866-fdceb45c-cbbf-486c-875e-817352f2ba7f.png)
+##dashboard product
+![image](https://user-images.githubusercontent.com/90734813/222950067-55d08feb-f08e-427c-8a67-c8e23f52cf28.png)
 
-![image](https://user-images.githubusercontent.com/90734813/222949879-b22261d1-0fac-4693-94cb-8aa889f5528f.png)
+##pege
+![image](https://user-images.githubusercontent.com/90734813/222950058-716fe7bd-7c27-4ba7-9dae-40a7d3d655dc.png)
+
+
